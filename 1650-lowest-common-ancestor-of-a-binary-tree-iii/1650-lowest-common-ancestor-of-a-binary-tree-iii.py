@@ -10,12 +10,27 @@ class Node:
 
 class Solution:
     def lowestCommonAncestor(self, p: 'Node', q: 'Node') -> 'Node':
-        visited = set()
+        pc, qc = 0, 0
+        pog, qog = p, q
         while p:
-            visited.add(p)
             p = p.parent
-
-        while q not in visited:
+            pc += 1
+        while q:
+            q = q.parent
+            qc += 1
+        p, q = pog,  qog
+        while pc > qc:
+            p = p.parent
+            pc -= 1
+        while qc > pc:
+            q = q.parent
+            qc -= 1
+        
+        while p and q:
+            if p == q:
+                return p
+                
+            p = p.parent
             q = q.parent
 
-        return q
+        return None
