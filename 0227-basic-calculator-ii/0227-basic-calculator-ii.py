@@ -1,9 +1,9 @@
 class Solution:
     def calculate(self, s: str) -> int:
         operators = set(["+", "-", "/", "*"])
+        current_op = "+"
         number = 0
         stack = []
-        current_op = "+"
         for i, c in enumerate(s):
             if c.isdigit():
                 number = number * 10 + int(c)
@@ -18,5 +18,4 @@ class Solution:
                     stack.append(int(stack.pop() / number))
                 current_op = c
                 number = 0
-
         return sum(stack)
