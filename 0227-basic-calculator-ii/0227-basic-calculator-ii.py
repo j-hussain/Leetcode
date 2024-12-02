@@ -1,6 +1,6 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        operators = set(["+", "-", "/", "*"])
+        operators = set(["+", "-", "*", "/"])
         current_op = "+"
         number = 0
         stack = []
@@ -12,10 +12,12 @@ class Solution:
                     stack.append(number)
                 elif current_op == "-":
                     stack.append(-number)
+                elif current_op == "/":
+                    stack.append( int(stack.pop() / number) )
                 elif current_op == "*":
                     stack.append(stack.pop() * number)
-                elif current_op == "/":
-                    stack.append(int(stack.pop() / number))
-                current_op = c
+
                 number = 0
-        return sum(stack)
+                current_op = c
+
+        return sum(stack) 
