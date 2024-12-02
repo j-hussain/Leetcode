@@ -1,14 +1,22 @@
 class Solution:
     def simplifyPath(self, path: str) -> str:
-        stack = []
-        for directory in path.split('/'):
-            if not directory or directory == '.':
-                continue
+        result = ""
+        i = 0
+        n = len(path)
+        
+        while i < n:
+            while i < n and path[i] == '/':
+                i += 1
             
-            if directory == '..':
-                if stack:
-                    stack.pop()
-            else:
-                stack.append(directory)
-
-        return "/" + "/".join(stack)
+            start = i
+            while i < n and path[i] != '/':
+                i += 1
+            component = path[start:i]
+            
+            if component == "..":
+                if result:
+                    result = result[:result.rfind('/')]
+            elif component and component != ".":
+                result += "/" + component
+        
+        return result if result else "/"
