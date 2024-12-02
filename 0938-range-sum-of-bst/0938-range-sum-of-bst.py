@@ -7,7 +7,6 @@
 class Solution:
     def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
         res = 0
-
         def dfs(node):
             nonlocal res
             if node:
@@ -15,7 +14,7 @@ class Solution:
                     res += node.val
                 if low < node.val:
                     dfs(node.left)
-                if high > node.val:
+                if node.val < high:
                     dfs(node.right)
 
         dfs(root)
