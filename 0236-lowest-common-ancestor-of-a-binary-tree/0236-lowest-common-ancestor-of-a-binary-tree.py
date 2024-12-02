@@ -7,21 +7,24 @@
 
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        res = None
-        def recurse(node):
-            nonlocal res
-            if not node:
-                return False
-                
-            l = recurse(node.left)
-            r = recurse(node.right)
+        stack = [root]
+        parent = {root: None}
 
-            flag = (node == q) or (node == p)
+        while p not in parent or q not in parent:
+            node = stack.pop()
+            if node.left:
+                stack.append(node.left)
+                parent[node.left] = node
+            if node.right:
+                stack.append(node.right)
+                parent[node.right] = node
 
-            if l + flag + r >= 2:
-                res = node
+        ancestors = set()
+        while p:
+            ancestors.add(p)
+            p = parent[p]
 
-            return flag or l or r
+        while q not in ancestors:
+            q = parent[q]
 
-        recurse(root)
-        return res
+        return q
