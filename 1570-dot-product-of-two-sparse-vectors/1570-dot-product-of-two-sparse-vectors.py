@@ -1,7 +1,7 @@
 class SparseVector:
     def __init__(self, nums: List[int]):
         self.values = {i: v for i, v in enumerate(nums) if v}
-        
+
     # Return the dotProduct of two sparse vectors
     def dotProduct(self, vec: 'SparseVector') -> int:
         return sum(value * vec.values.get(i, 0) for i, value in self.values.items())
